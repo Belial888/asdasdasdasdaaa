@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PWD Health Login</title>
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #f4f4f4; display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100vh; }
+        .container { background: white; padding: 2rem; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.2); width: 350px; border: 2px solid #000; }
+        h2 { text-align: center; color: #333; }
+        input { width: 93%; padding: 12px; margin: 10px 0; border: 2px solid #333; font-size: 16px; }
+        button { width: 100%; padding: 12px; background: #00008B; color: white; font-size: 18px; border: none; cursor: pointer; font-weight: bold; }
+        button:hover { background: #0000CD; }
+        .toggle-link { display: block; text-align: center; margin-top: 15px; color: #00008B; cursor: pointer; text-decoration: underline; font-size: 1.1em; }
+        .alert { color: white; padding: 10px; margin-bottom: 15px; border-radius: 5px; text-align: center; }
+        .alert-message { background-color: #ff4444; } 
+        .alert-success { background-color: #00C851; }
+    </style>
+</head>
+<body>
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <div class="alert alert-message">
+          {% for message in messages %}
+            {{ message }}
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
+
+    <div class="container">
+        <h2 id="form-title">Patient Login</h2>
+        
+        <form id="login-form" action="/login" method="POST">
+            <label for="email"><strong>Email Address:</strong></label>
+            <input type="email" id="email" name="email" required placeholder="Enter your email">
+            <label for="password"><strong>Password:</strong></label>
+            <input type="password" id="password" name="password" required placeholder="Enter your password">
+            <button type="submit">Sign In</button>
+            <span class="toggle-link" onclick="toggleForm()">New user? Create an account</span>
+        </form>
+
+        <form id="register-form" action="/register" method="POST" style="display:none;">
+            <label for="reg-name"><strong>Full Name:</strong></label>
+            <input type="text" id="reg-name" name="fullname" required>
+            <label for="reg-pwd-id"><strong>PWD ID Number:</strong></label>
+            <input type="text" id="reg-pwd-id" name="pwd_id" required placeholder="required for verification">
+            <label for="reg-email"><strong>Email Address:</strong></label>
+            <input type="email" id="reg-email" name="email" required>
+            <label for="reg-password"><strong>Create Password:</strong></label>
+            <input type="password" id="reg-password" name="password" required>
+            <button type="submit">Register</button>
+            <span class="toggle-link" onclick="toggleForm()">Already have an account? Login</span>
+        </form>
+    </div>
+
+    <script>
+        function toggleForm() {
+            var login = document.getElementById('login-form');
+            var register = document.getElementById('register-form');
+            var title = document.getElementById('form-title');
+            if (login.style.display === 'none') {
+                login.style.display = 'block';
+                register.style.display = 'none';
+                title.innerText = 'Patient Login';
+            } else {
+                login.style.display = 'none';
+                register.style.display = 'block';
+                title.innerText = 'Patient Registration';
+            }
+        }
+    </script>
+</body>
+</html>

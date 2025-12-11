@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patient Dashboard</title>
+    <style>
+        body { font-family: 'Verdana', sans-serif; margin: 0; padding: 0; background-color: #ffffff; color: #000; }
+        header { background-color: #00008B; color: white; padding: 20px; text-align: center; }
+        .container { max-width: 900px; margin: 20px auto; padding: 20px; }
+        .section-box { border: 3px solid #333; padding: 20px; margin-bottom: 30px; border-radius: 5px; }
+        h3 { border-bottom: 2px solid #333; padding-bottom: 10px; }
+        label { display: block; margin: 10px 0 5px; font-weight: bold; font-size: 1.1em; }
+        input, select, textarea { width: 100%; padding: 12px; font-size: 16px; border: 2px solid #000; margin-bottom: 15px; }
+        .btn-book { background-color: #006400; color: white; font-size: 1.2em; padding: 15px 30px; border: none; cursor: pointer; width: 100%; }
+        .btn-book:hover { background-color: #008000; }
+        table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+        th, td { border: 2px solid #000; padding: 12px; text-align: left; }
+        th { background-color: #ddd; }
+        .status-Pending { color: #d35400; font-weight: bold; }
+        .status-Approved { color: #006400; font-weight: bold; }
+        .status-Cancelled { color: #b00; font-weight: bold; }
+        .alert { padding: 15px; background-color: #ffcccb; border: 1px solid red; margin-bottom: 20px; color: black;}
+        .alert.success { background-color: #d4edda; border-color: #c3e6cb; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>PWD Health Appointment System</h1>
+        <p>Welcome, {{ user_name }} | <a href="/logout" style="color: #fff;">Logout</a></p>
+    </header>
+
+    <div class="container">
+        
+        <!-- Flash Messages (Errors/Success) -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+            {% for category, message in messages %}
+              <div class="alert {{ category }}">{{ message }}</div>
+            {% endfor %}
+          {% endif %}
+        {% endwith %}
+        
+        <!-- Booking Module -->
+        <div class="section-box">
+            <h3>📅 Book a New Appointment</h3>
+            <form action="/book_appointment" method="POST">
+                <label for="date">Date of Visit:</label>
+                <input type="date" id="date" name="date" required>
+
+                <label for="time">Time Slot:</label>
+                <select id="time" name="time" required>
+                    <option value="" disabled selected>Select a time...</option>
+                    <option value="09:00:00">09:00 AM - 10:00 AM</option>
+                    <option value="10:00:00">10:00 AM - 11:00 AM</option>
+                    <option value="11:00:00">11:00 AM - 12:00 PM</option>
+                    <option value="14:00:00">02:00 PM - 03:00 PM</option>
+                    <option value="15:00:00">03:00 PM - 04:00 PM</option>
+                </select>
+
+                <label for="purpose">Purpose of Visit:</label>
+                <textarea id="purpose" name="purpose" rows="3" required placeholder="e.g., Annual Physical Therapy checkup"></textarea>
+
+                <button type="submit" class="btn-book">Confirm Booking Request</button>
+            </form>
+        </div>
+
+        <!-- History Module -->
+        <div class="section-box">
+            <h3>📂 Appointment History</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Time</th>
+                        <th>Purpose</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for appt in appointments %}
+                    <tr>
+                        <td>{{ appt.appointment_date }}</td>
+                        <td>{{ appt.appointment_time }}</td>
+                        <td>{{ appt.purpose }}</td>
+                        <td class="status-{{ appt.status }}">{{ appt.status }}</td>
+                    </tr>
+                    {% else %}
+                    <tr>
+                        <td colspan="4" style="text-align:center;">No appointment history found.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PWD Health Appointment System</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 0; padding: 0; background-color: #f0f2f5; height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; }
+        .hero { text-align: center; margin-bottom: 40px; }
+        .hero h1 { font-size: 3em; margin-bottom: 10px; color: #333; }
+        .hero p { font-size: 1.2em; color: #666; max-width: 600px; margin: 0 auto; }
+        .card-container { display: flex; gap: 30px; }
+        .role-card { background: white; padding: 40px; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); text-align: center; width: 250px; border: 2px solid transparent; transition: 0.3s; }
+        .role-card:hover { transform: translateY(-5px); border-color: #00008B; }
+        .icon { font-size: 50px; margin-bottom: 20px; display: block; }
+        .btn { display: block; width: 100%; padding: 15px 0; border-radius: 5px; text-decoration: none; font-weight: bold; font-size: 18px; margin-top: 20px; }
+        .btn-patient { background-color: #00008B; color: white; }
+        .btn-patient:hover { background-color: #0000CD; }
+        .btn-admin { background-color: #333; color: white; }
+        .btn-admin:hover { background-color: #555; }
+    </style>
+</head>
+<body>
+
+    <div class="hero">
+        <h1>PWD Health Portal</h1>
+        <p>Online scheduling of medical check-ups for Persons with Disabilities. Skip the line, book online.</p>
+    </div>
+
+    <div class="card-container">
+        <!-- Patient Access -->
+        <div class="role-card">
+            <span class="icon">🏥</span>
+            <h2>Patient</h2>
+            <p>Book appointments, view history, and manage your profile.</p>
+            <a href="/login_page" class="btn btn-patient">Login as Patient</a>
+        </div>
+
+        <!-- Admin Access -->
+        <div class="role-card">
+            <span class="icon">🛡️</span>
+            <h2>Admin Staff</h2>
+            <p>Manage schedules, approve requests, and update records.</p>
+            <a href="/login_page" class="btn btn-admin">Admin Console</a>
+        </div>
+    </div>
+
+</body>
+</html>
