@@ -1,4 +1,4 @@
-### **pip install pymysql**
+pip install pymysql
 pip install flask mysql-connector-python
 pip install selenium webdriver-manager
 
